@@ -1,33 +1,51 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
-<script>
-   function previewFile(){
-       var preview = document.querySelector('img'); //selects the query named img
-       var file    = document.querySelector('input[type=file]').files[0]; //sames as here
-       var reader  = new FileReader();
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
-       reader.onloadend = function () {
-           preview.src = reader.result;
-       }
+    <script>
+        $(document).ready(function () {
+            var imageLoader = document.getElementById('imageLoader');
+            imageLoader.addEventListener('change', handleImage, false);
+            var canvas = document.getElementById('imageCanvas');
+            var ctx = canvas.getContext('2d');
 
-       if (file) {
-           reader.readAsDataURL(file); //reads the data as a URL
-       } else {
-           preview.src = "";
-       }
-  }
-  //previewFile();  //calls the function named previewFile()
-    
-  </script>
+
+            function handleImage(e) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var img = new Image();
+                    img.onload = function () {
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                    }
+                    img.src = event.target.result;
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            }
+
+            var color = document.getElementById('color');
+
+            function pick(event) {
+                var x = event.layerX;
+                var y = event.layerY;
+                var pixel = ctx.getImageData(x, y, 1, 1);
+                var data = pixel.data;
+                var rgba = 'rgba(' + data[0] + ',' + data[1] +
+                    ',' + data[2] + ',' + data[3] + ')';
+                color.textContent = rgba;
+            }
+            canvas.addEventListener('mousemove', pick);
+        });
+    </script>
 </head>
 
 <body>
-
-    <input type="file" onchange="previewFile()">
-    <br>
-    <img src="" height="200" alt="Image preview...">
-
+    <input type="file" id="imageLoader" name="imageLoader" />
+    <canvas id="imageCanvas"></canvas>
+    <div id="color" style="width:200px; height:50px;float:right"></div>
 
 </body>
 
