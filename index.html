@@ -9,9 +9,10 @@
     <link rel="stylesheet" type="text/css" href="css/star.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/mainpage.css" />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
 
 </head>
 
@@ -46,7 +47,7 @@
     <script type="text/javascript" src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/ShootingStarClass.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             var shootingStarObj = new ShootingStar("body");
             shootingStarObj.launch();
         });
@@ -54,91 +55,15 @@
 
     <div class="container-fluid bg-3 text-center">
         <h3>Gallery</h3>
-        <br>
-        <div class="row">
-            <div class="col-sm-4">
-                <p>Cinemetrics</p>
-                <a href="http://cinemetrics.fredericbrodbeck.de/">
-                    <img src="img/home/cinemetrics.jpg" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-            <div class="col-sm-4">
-                <p>Slinky Draw</p>
-                <a href="http://christinecha.github.io/slinkydraw/">
-                    <img src="img/home/slinky.PNG" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-            <div class="col-sm-4">
-                <p>Touch Piano</p>
-                <a href="http://touchpianist.com/">
-                    <img src="img/home/piano.jpg" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-sm-4">
-                <p>Silk Weaver</p>
-                <a href="http://weavesilk.com/">
-                    <img src="img/home/silk.png" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-            <div class="col-sm-4">
-                <p>US Party System</p>
-                <a href="http://www.mamartino.com/projects/rise_of_partisanship/">
-                    <img src="img/home/party.jpg" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-            <div class="col-sm-4">
-                <p>US Demographics</p>
-                <a href="http://demographics.coopercenter.org/DotMap/index.html">
-                    <img src="img/home/demographics.jpg" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-sm-4">
-                <p>Depronet</p>
-                <a href="html/depronet.html">
-                    <img src="img/home/depronet.png" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-            <div class="col-sm-4">
-                <p>Animation</p>
-                <a href="html/hiddenpicture.html">
-                    <img src="img/home/animation.png" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-            <div class="col-sm-4">
-                <p>Money Eater</p>
-                <a href="html/moneyeater.html">
-                    <img src="img/home/moneyeater.png" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <p>Liquid</p>
-                <a href="liquid/index.html">
-                    <img src="img/home/liquid.png" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-            <div class="col-sm-4">
-                <p>Image Analyzer</p>
-                <a href="html/imageanalyzer.html">
-                    <img src="img/home/imageanalyzer.png" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-             <div class="col-sm-4">
-                <p>matrix rain</p>
-                <a href="html/matrix.html">
-                    <img src="img/home/matrix_image.PNG" class="img-responsive" style="width:100%" alt="Image">
-                </a>
-            </div>
-        </div>
+        
+        <a href="html/hiddenpicture.html"><img id="card1" src="./img/home/animation.png" class="card" /></a>
+        <a href="liquid/index.html"><img id="card2" src="./img/home/liquid.png" class="card" /></a>
+        <a href="html/imageanalyzer.html"><img id="card3" src="./img/home/imageanalyzer.png" class="card" /></a>
+        <a href="html/moneyeater.html"><img id="card4" src="./img/home/moneyeater.png" class="card" /></a>
+        <a href="html/depronet.html"><img id="card5" src="./img/home/depronet.png" class="card" /></a>
+        <a href=""><img id="card6" src="./img/home/animation.png" class="card" /></a>
+        <a href=""><img id="card7" src="./img/home/animation.png" class="card" /></a>
+        
         <hr>
         <footer>
             <div class="row">

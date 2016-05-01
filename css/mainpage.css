@@ -1,0 +1,12 @@
+/* css for main page */
+
+.card {
+    transform: rotateX(60deg) rotateZ(-40deg);
+    border: 10px solid black;
+    width: 200px;
+    height: 200px;
+    box-shadow: -20px 20px 10px #000000;
+}
+.card:hover{
+    border: 10px solid yellow;
+}
