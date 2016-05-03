@@ -195,7 +195,11 @@ Boid.prototype.flock = function (boids) {
     //var ali = this.align(boids); // Alignment
     var coh = this.cohesion(boids); // Cohesion
     // Arbitrarily weight these forces
-    sep.mult(3.0);
+    if (moneys.length >0) {
+        sep.mult(3.0);
+    } else {
+        sep.mult(0.0);
+    }
     //ali.mult(1.0);
     coh.mult(5.0);
     // Add the force vectors to acceleration
@@ -233,10 +237,10 @@ Boid.prototype.seek = function (target) {
 Boid.prototype.render = function () {
     var left = createVector(-1, 0);
     var angle = p5.Vector.angleBetween(left, this.velocity);
-    angle = (Math.floor(angle * 20 / PI))* PI / 20;
+    angle = (Math.floor(angle * 120 / PI))* PI / 120;
     push();
     angleMode(RADIANS);
-    translate(this.position.x, this.position.y);
+    translate(this.position.x + person.width/8, this.position.y + person.height/8);
     this.angle = (0.9 * this.angle + angle * 0.1);
     if (this.velocity.x > 0) {
         scale(-1.0,1.0);
