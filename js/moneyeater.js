@@ -1,4 +1,4 @@
-var boids = [];
+var people = [];
 var moneys = [];
 var tosses = [];
 var moneyPic;
@@ -17,9 +17,9 @@ function setup() {
     tossPic = loadImage("../img/moneyeater/toss.png");
     sparkTime = 0;
     
-    // Add an initial set of boids into the system
+    // Add an initial set of people into the system
     for (var i = 0; i < 5; i++) {
-        boids[i] = new Boid(random(width), random(height));
+        people[i] = new Person(random(width), random(height));
     }
 }
 
@@ -27,14 +27,14 @@ function draw() {
     // Repaint gray on top each frame
     background(51);
     
-    // Run all the boids
-    for (var i = 0; i < boids.length; i++) {
-        boids[i].run(boids);
+    // Run all the people
+    for (var i = 0; i < people.length; i++) {
+        people[i].run(people);
     } 
 
      // Run all Tosses
     for (var i = 0; i < tosses.length; i++) {
-        tosses[i].run(boids);
+        tosses[i].run(people);
     }
     
     // Delete tosses that got kicked out
@@ -48,7 +48,7 @@ function draw() {
     
     // Run all the moneys
     for (var i = 0; i < moneys.length; i++) {
-        moneys[i].run(boids);
+        moneys[i].run(people);
     }
     
     //Delete any moneys that got eaten
@@ -82,9 +82,9 @@ function Money(x, y) {
 }
 
 // Run for each frame
-Money.prototype.run = function (boids) {
+Money.prototype.run = function (people) {
     // Make the index null if it is eaten
-    if (this.checkEaten(boids)) {
+    if (this.checkEaten(people)) {
         var index = moneys.indexOf(this);
         moneys[index] = null;
     } else {
@@ -94,12 +94,12 @@ Money.prototype.run = function (boids) {
 }
 
 // Check if the money should be deleted
-Money.prototype.checkEaten = function (boids) {
+Money.prototype.checkEaten = function (people) {
     var eatingRadius = 75;
     var eaten = false;
     // Check if there's a person nearby
-    for (var i = 0; i < boids.length; i++) {
-        var d = p5.Vector.dist(this.position, boids[i].position);
+    for (var i = 0; i < people.length; i++) {
+        var d = p5.Vector.dist(this.position, people[i].position);
         if (d < eatingRadius) {
             eaten = true;
         }
@@ -125,9 +125,9 @@ function Toss(x,y) {
 }
 
 // Run for each frame
-Toss.prototype.run = function (boids) {
-    // Check if the toss coin is kicked by boids
-    if (this.checkKicked(boids)) {
+Toss.prototype.run = function (people) {
+    // Check if the toss coin is kicked by people
+    if (this.checkKicked(people)) {
         this.kicked = true;
     }
     // If the toss is kick, move the coin
@@ -146,14 +146,14 @@ Toss.prototype.run = function (boids) {
 }
 
 // Check if the toss should be kicked
-Toss.prototype.checkKicked = function (boids) {
+Toss.prototype.checkKicked = function (people) {
     var kickingRadius = 75;
     var kicked = false;
-    for (var i = 0; i < boids.length; i++) {
-        var d = p5.Vector.dist(this.position, boids[i].position);
+    for (var i = 0; i < people.length; i++) {
+        var d = p5.Vector.dist(this.position, people[i].position);
         if (d < kickingRadius) {
             kicked = true;
-            this.velocity = p5.Vector.sub(this.position, boids[i].position);
+            this.velocity = p5.Vector.sub(this.position, people[i].position);
         }
     }
     return kicked;
@@ -164,10 +164,11 @@ Toss.prototype.render = function () {
     image(tossPic, this.position.x, this.position.y, tossPic.width/4, tossPic.height/4);
 }
 
-// Boid class
+
+// Person class
 ////////////////////////////////////////////////
 // Methods for Separation, Cohesion, Alignment added
-function Boid(x, y) {
+function Person(x, y) {
     this.acceleration = createVector(0, 0);
     this.velocity = p5.Vector.random2D();
     this.position = createVector(x, y);
@@ -177,23 +178,22 @@ function Boid(x, y) {
     this.angle = 0;
 }
 
-Boid.prototype.run = function (boids) {
-    this.flock(boids);
+Person.prototype.run = function (people) {
+    this.flock(people);
     this.update();
     this.borders();
     this.render();
 }
 
 // Forces go into acceleration
-Boid.prototype.applyForce = function (force) {
+Person.prototype.applyForce = function (force) {
     this.acceleration.add(force);
 }
 
 // We accumulate a new acceleration each time based on three rules
-Boid.prototype.flock = function (boids) {
-    var sep = this.separate(boids); // Separation
-    //var ali = this.align(boids); // Alignment
-    var coh = this.cohesion(boids); // Cohesion
+Person.prototype.flock = function (people) {
+    var sep = this.separate(people); // Separation
+    var coh = this.cohesion(people); // Cohesion
     // Arbitrarily weight these forces
     if (moneys.length >0) {
         sep.mult(3.0);
@@ -204,13 +204,12 @@ Boid.prototype.flock = function (boids) {
     coh.mult(5.0);
     // Add the force vectors to acceleration
     this.applyForce(sep);
-    //this.applyForce(ali);
     //this.velocity.limit(this.maxspeed);
     this.applyForce(coh);
 }
 
 // Method to update location
-Boid.prototype.update = function () {
+Person.prototype.update = function () {
     // Update velocity
     this.velocity.add(this.acceleration);
     // Limit speed
@@ -222,7 +221,7 @@ Boid.prototype.update = function () {
 
 // A method that calculates and applies a steering force towards a target
 // STEER = DESIRED MINUS VELOCITY
-Boid.prototype.seek = function (target) {
+Person.prototype.seek = function (target) {
     var desired = p5.Vector.sub(target, this.position); // A vector pointing from the location to the target
     // Normalize desired and scale to maximum speed
     desired.normalize();
@@ -233,8 +232,8 @@ Boid.prototype.seek = function (target) {
     return steer;
 }
 
-// Draw boid as a person
-Boid.prototype.render = function () {
+// Draw person as a person
+Person.prototype.render = function () {
     var left = createVector(-1, 0);
     var angle = p5.Vector.angleBetween(left, this.velocity);
     angle = (Math.floor(angle * 120 / PI))* PI / 120;
@@ -267,10 +266,9 @@ Boid.prototype.render = function () {
 }
 
 // Bounce back if hit the wall
-Boid.prototype.borders = function () {
-    if (this.position.x < this.r) {
-        this.velocity.x =  3;
-    } 
+Person.prototype.borders = function () {
+    if (this.position.x < this.r) 
+        this.velocity.x =  3; 
     if (this.position.x > width - 30*this.r)
         this.velocity.x = -3;
     if (this.position.y < this.r)
@@ -280,18 +278,18 @@ Boid.prototype.borders = function () {
 }
 
 // Separation
-// Method checks for nearby boids and steers away
-Boid.prototype.separate = function (boids) {
+// Method checks for nearby people and steers away
+Person.prototype.separate = function (people) {
     var desiredseparation = 100.0;
     var steer = createVector(0, 0);
     var count = 0;
-    // For every boid in the system, check if it's too close
-    for (var i = 0; i < boids.length; i++) {
-        var d = p5.Vector.dist(this.position, boids[i].position);
+    // For every person in the system, check if it's too close
+    for (var i = 0; i < people.length; i++) {
+        var d = p5.Vector.dist(this.position, people[i].position);
         // If the distance is greater than 0 and less than an arbitrary amount (0 when you are yourself)
         if ((d > 0) && (d < desiredseparation)) {
             // Calculate vector pointing away from neighbor
-            var diff = p5.Vector.sub(this.position, boids[i].position);
+            var diff = p5.Vector.sub(this.position, people[i].position);
             diff.normalize();
             diff.div(d); // Weight by distance
             steer.add(diff);
@@ -314,34 +312,10 @@ Boid.prototype.separate = function (boids) {
     return steer;
 }
 
-// Alignment
-// For every nearby boid in the system, calculate the average velocity
-Boid.prototype.align = function (boids) {
-    var neighbordist = 50;
-    var sum = createVector(0, 0);
-    var count = 0;
-    for (var i = 0; i < boids.length; i++) {
-        var d = p5.Vector.dist(this.position, boids[i].position);
-        if ((d > 0) && (d < neighbordist)) {
-            sum.add(boids[i].velocity);
-            count++;
-        }
-    }
-    if (count > 0) {
-        sum.div(count);
-        sum.normalize();
-        sum.mult(this.maxspeed);
-        var steer = p5.Vector.sub(sum, this.velocity);
-        steer.limit(this.maxforce);
-        return steer;
-    } else {
-        return createVector(0, 0);
-    }
-}
 
 // Cohesion
-// For the average location (i.e. center) of all nearby boids, calculate steering vector towards that location
-Boid.prototype.cohesion = function (boids) {
+// For the average location (i.e. center) of all nearby people, calculate steering vector towards that location
+Person.prototype.cohesion = function (people) {
     var toWhere = createVector(0, 0); // Start with empty vector to accumulate all locations
     var count = 0;
     var min = 10000;
