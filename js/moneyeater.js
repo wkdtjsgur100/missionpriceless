@@ -2,6 +2,7 @@ var people = [];
 var moneys = [];
 var tosses = [];
 var moneyPic;
+var backGround;
 var person;
 var spark;
 var tossPic;
@@ -15,6 +16,7 @@ function setup() {
     moneyPic = loadImage("../img/moneyeater/50000s.png");
     spark = loadImage("../img/moneyeater/spark.png");
     tossPic = loadImage("../img/moneyeater/toss.png");
+    backGround = loadImage("../img/moneyeater/background.png");
     sparkTime = 0;
     
     // Add an initial set of people into the system
@@ -25,8 +27,9 @@ function setup() {
 
 function draw() {
     // Repaint gray on top each frame
-    background(51);
-    
+    //background(51);
+    //background(backGround);
+    background("rgb(6, 6, 46)");
     // Run all the people
     for (var i = 0; i < people.length; i++) {
         people[i].run(people);
@@ -257,7 +260,11 @@ Person.prototype.render = function () {
     }
  
     if(moneys.length > 0) {
-        image(happyPerson, 0, 0, happyPerson.width/4, happyPerson.height/4);
+        if ((Math.floor(sparkTime/15) % 2) == 0)  {
+            image(happyPerson, 0, 0, happyPerson.width/4, happyPerson.height/4);
+        } else {
+            image(person,0, 0, person.width/4, person.height/4);
+        }
   
     } else {
         image(person,0, 0, person.width/4, person.height/4);
@@ -332,6 +339,5 @@ Person.prototype.cohesion = function (people) {
         return this.seek(toWhere); // Steer towards the location
     } else {
         return createVector(0,0);
-        //return createVector(random(-0.003,0.003), random(-0.003,0.003)); // No effect if there's no money
     }
 }
