@@ -153,6 +153,11 @@ $(document).ready(function () {
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
             chart.draw(dataTable, options);
+            
+            // animation
+            $('#curtain').animate({width: "100px", height: "50px"}, 2000, function() {          
+                $("#curtain").remove();
+});
         }
     }
 });
