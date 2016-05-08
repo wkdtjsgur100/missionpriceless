@@ -1,7 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-}
+
 html {
     height: 100%;
     width: 100%;
@@ -10,29 +7,30 @@ body {
     height: 100%;
     width: 100%;
 }
+
 #imageLoader {
-    z-index: 3;
 }
+
 .centerDiv {
     width: 90%;
     height: 70%;
     margin: 0 auto;
-    margin-top: 5%;
-    z-index: 1;
-    border-style: outset;
 }
+
 .div1 {
     width: 50%;
     height: 100%;
-    float: left;
-    border-right-style: solid;
-    border-right-width: 1px;
+    background-color:rgba(173, 221, 144, 0.71);
+    float:left;
+    vertical-align: middle;
 }
+
 canvas {
     width: 100%;
 }
 .div2 {
     width: 50%;
     height: 100%;
-    float: left;
+    background-color:#f8f1b8;
+    float: right;
 }
