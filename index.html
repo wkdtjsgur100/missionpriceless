@@ -50,6 +50,12 @@
         $(document).ready(function () {
             var shootingStarObj = new ShootingStar("body");
             shootingStarObj.launch();
+            
+            $(".card").click(function(event){
+                $(this).animate(
+                    {transform: "translate(0,10px)"},
+                    "slow");
+            });
         });
     </script>
 
