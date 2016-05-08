@@ -90,8 +90,8 @@ $(document).ready(function () {
             var img = new Image();
             img.onload = function () {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0, img.width,    img.height,    // source rectangle
-                   0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, img.width, img.height, // source rectangle
+                    0, 0, canvas.width, canvas.height);
                 drawGraph();
             };
             img.src = event.target.result;
@@ -153,11 +153,19 @@ $(document).ready(function () {
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
             chart.draw(dataTable, options);
-            
+
             // animation
-            $('#curtain').animate({width: "100px", height: "50px"}, 2000, function() {          
+            $('#curtain').animate({
+                width: "50px",
+                height: "25px"
+            }, 1000, function () {
                 $("#curtain").remove();
-});
+                $("#loadButton").animate({
+                    left: -$("#loadButton").parent().width() +  $("#loadButton").width() + 20,
+                    top: -$("#loadButton").parent().height() + $("#loadButton").height() + 30
+                }, 1000, function () {$("#loadButton").css({"top": "11px", "bottom": "auto","left": "8px","right": "auto"});});
+                
+            });
         }
     }
 });

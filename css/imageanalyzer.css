@@ -11,10 +11,6 @@ body {
     position: relative;
 }
 
-#imageLoader {
-    position: absolute;
-    z-index: 3;
-}
 
 .centerDiv {
     width: 90%;
@@ -60,4 +56,27 @@ canvas {
     left: 0;
     right: 0;
     margin: auto;
+}
+
+input[type="file"] {
+    display: none;
+}
+#loadButton {
+    border: 1px solid #ccc;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 3px 3px 3px 3px;
+    height: 23px;
+    width: 145px;
+    cursor: pointer;
+    background-color: #ffffff;
+    position: absolute;
+    text-align: center;
+    z-index: 3;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    overflow:hidden;
 }

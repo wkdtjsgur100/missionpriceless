@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../css/imageanalyzer.css">
 
     <!-- jQuery library -->
@@ -15,9 +15,13 @@
 
 <body>
     <div id="curtain"></div>
+    <label for="imageLoader" class="custom-file-upload" id="loadButton">
+        <i class="fa fa-cloud-upload"></i> Image Upload
+    </label>
+    
     <input type="file" id="imageLoader" name="imageLoader" />
     <br />
-    
+
     <div class="centerDiv">
         <div class="div1">
             <canvas id="imageCanvas"></canvas>
