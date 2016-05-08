@@ -2,15 +2,29 @@
 <html>
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/imageanalyzer.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <!-- Google Charts JavaScript Library -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script src="../js/imageanalyzer.js"></script>
 </head>
 
 <body>
-    <input type="file" id="imageLoader" name="imageLoader" />
-    <div id="chart_div"></div>
-    <canvas id="imageCanvas"></canvas>
+    <input type="file" id="imageLoader" name="imageLoader" style="z-index:3;" />
+    <br />
+    <div class="centerDiv">
+        <div class="div1">
+            <canvas id="imageCanvas"></canvas>
+        </div>
+        <div class="div2">
+            <div id="chart_div"></div>
+        </div>
+    </div>
+
 
 </body>
 
