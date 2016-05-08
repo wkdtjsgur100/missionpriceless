@@ -1,4 +1,14 @@
+// TODOS
+/*
+    1. Google charts bars growing animation (if not possible consider using d3)
+    2. Make the charts responsive (resizing problem)   
+        - make all 360 values display in the div 
+    3. Starting animation 
+    4. Make canvas image fit correctly
+*/
+
 var hue = [];
+
 google.charts.load('current', {
     'packages': ['corechart']
 });
@@ -79,12 +89,10 @@ $(document).ready(function () {
         reader.onload = function (event) {
             var img = new Image();
             img.onload = function () {
-                //canvas.width = img.width;
-                //canvas.height = img.height;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(img, 0, 0, img.width,    img.height,    // source rectangle
                    0, 0, canvas.width, canvas.height);
-                //drawGraph();
+                drawGraph();
             };
             img.src = event.target.result;
         }
@@ -133,12 +141,12 @@ $(document).ready(function () {
                 var c = "color: rgb(" + colorRGB[0] + ", " + colorRGB[1] + ", " + colorRGB[2] + ")";
                 dataTable.addRow([s, hue[i], c]);
             }
-
+            var chartdiv = document.getElementById('chart_div');
             // Set chart options
             var options = {
                 'title': 'Color graph',
-                //'width': 1000,
-                //'height': 500,
+                'width': chartdiv.width,
+                'height': chartdiv.height,
                 legend: 'none'
             };
 
