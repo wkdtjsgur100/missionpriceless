@@ -1,12 +1,56 @@
 /* css for main page */
 
-.card {
-    transform: rotateX(60deg) rotateZ(-40deg);
+.card{
+    -webkit-animation-name: Floatingx;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-name: Floating;
+    -moz-animation-duration: 3s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: ease-in-out;
+    margin-left: 30px;
+    margin-top: 5px;
+    
     border: 10px solid black;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     box-shadow: -20px 20px 10px #000000;
 }
+
 .card:hover{
     border: 10px solid yellow;
+}
+
+@-webkit-keyframes Floatingx{
+    from {-webkit-transform:translate(0, 0px) rotateX(60deg) rotateZ(-40deg);}
+    65% {-webkit-transform:translate(0, 15px) rotateX(60deg) rotateZ(-40deg);}
+    to {-webkit-transform: translate(0, -0px) rotateX(60deg) rotateZ(-40deg);}    
+}
+    
+@-moz-keyframes Floating{
+    from {-moz-transform:translate(0, 0px) rotateX(60deg) rotateZ(-40deg); }
+    65% {-moz-transform:translate(0, 15px) rotateX(60deg) rotateZ(-40deg);}
+    to {-moz-transform: translate(0, -0px) rotateX(60deg) rotateZ(-40deg);}    
+}
+
+
+.bubble{
+	position:relative;
+}
+.bubble .label{
+	color:#ffffff;
+	background-color:#66aa11;
+	border-radius:5px;
+	padding:10px;
+}
+.bubble .tail{
+	left:50%;
+	margin-left:-18px;
+	border-right :18px solid transparent;
+	border-top:18px solid #66aa11;
+	border-left : 18px solid transparent;
+	position:absolute;
+	bottom:-18px;
+	width:0; height:0;
 }
