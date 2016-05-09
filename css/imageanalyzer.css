@@ -23,7 +23,7 @@ body {
     
 }
 
-.div1 {
+#div1 {
     width: 50%;
     height: 100%;
     background-color:rgba(173, 221, 144, 0.71);
@@ -31,10 +31,10 @@ body {
 }
 
 canvas {
-    width: 100%;
-    height: 100%;
+    /*width: 100%;
+    height: 100%;*/
 }
-.div2 {
+#div2 {
     width: 50%;
     height: 100%;
     background-color:#f8f1b8;

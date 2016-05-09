@@ -76,22 +76,83 @@ function rgbToHsl(r, g, b) {
     return [h, s, l];
 }
 
+function startingAnimation() {
+    // animation
+    $('#curtain').animate({
+        width: "50px",
+        height: "25px"
+    }, 1000, function () {
+        $("#curtain").remove();
+        $("#loadButton").animate({
+            left: -$("#loadButton").parent().width() + $("#loadButton").width() + 20,
+            top: -$("#loadButton").parent().height() + $("#loadButton").height() + 30
+        }, 1000, function () {
+            $("#loadButton").css({
+                "top": "11px",
+                "bottom": "auto",
+                "left": "8px",
+                "right": "auto"
+            });
+        });
+
+    });
+}
+
+function fitImage(canvas, context, imageObj) {
+	var imageAspectRatio = imageObj.width / imageObj.height;
+	var canvasAspectRatio = canvas.width / canvas.height;
+    var renderableHeight, renderableWidth, xStart, yStart;
+
+	// If image's aspect ratio is less than canvas's we fit on height
+	// and place the image centrally along width
+	if(imageAspectRatio < canvasAspectRatio) {
+		renderableHeight = canvas.height;
+		renderableWidth = imageObj.width * (renderableHeight / imageObj.height);
+		xStart = (canvas.width - renderableWidth) / 2;
+        yStart = 0;
+	}
+
+	// If image's aspect ratio is greater than canvas's we fit on width
+	// and place the image centrally along height
+	else if(imageAspectRatio > canvasAspectRatio) {
+		renderableWidth = canvas.width;
+		renderableHeight = imageObj.height * (renderableWidth / imageObj.width);
+		xStart = 0;
+		yStart = (canvas.height - renderableHeight) / 2;
+	}
+
+	// Happy path - keep aspect ratio
+	else {
+		renderableHeight = canvas.height;
+		renderableWidth = canvas.width;
+		xStart = 0;
+		yStart = 0;
+	}
+	context.drawImage(imageObj, xStart, yStart, renderableWidth, renderableHeight);
+}
+
+
 $(document).ready(function () {
     var imageLoader = document.getElementById('imageLoader');
     imageLoader.addEventListener('change', handleImage, false);
     var canvas = document.getElementById('imageCanvas');
     var container = document.getElementById('outside');
     var ctx = canvas.getContext('2d');
+    
+    
 
     function handleImage(e) {
+        canvas.width = $("#div1").width(); 
+        canvas.height = $("#div1").height();
         // Draw the image
         var reader = new FileReader();
         reader.onload = function (event) {
             var img = new Image();
             img.onload = function () {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0, img.width, img.height, // source rectangle
-                    0, 0, canvas.width, canvas.height);
+                //ctx.drawImage(img, 0, 0, img.width, img.height, // source rectangle
+                    //0, 0, canvas.width, canvas.height);
+                fitImage(canvas, ctx, img);
                 drawGraph();
             };
             img.src = event.target.result;
@@ -153,19 +214,8 @@ $(document).ready(function () {
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
             chart.draw(dataTable, options);
-
-            // animation
-            $('#curtain').animate({
-                width: "50px",
-                height: "25px"
-            }, 1000, function () {
-                $("#curtain").remove();
-                $("#loadButton").animate({
-                    left: -$("#loadButton").parent().width() +  $("#loadButton").width() + 20,
-                    top: -$("#loadButton").parent().height() + $("#loadButton").height() + 30
-                }, 1000, function () {$("#loadButton").css({"top": "11px", "bottom": "auto","left": "8px","right": "auto"});});
-                
-            });
+            // Start the drawing animation
+            startingAnimation();
         }
     }
 });
