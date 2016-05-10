@@ -26,7 +26,7 @@ body {
 #div1 {
     width: 50%;
     height: 100%;
-    background-color:rgba(173, 221, 144, 0.71);
+    //background-color:rgba(173, 221, 144, 0.71);
     float:left;
 }
 
@@ -37,7 +37,7 @@ canvas {
 #div2 {
     width: 50%;
     height: 100%;
-    background-color:#f8f1b8;
+    //background-color:#f8f1b8;
     float: left;
 }
 #chart_div {

@@ -3,12 +3,11 @@
     1. Google charts bars growing animation (if not possible consider using d3)
     2. Make the charts responsive (resizing problem)   
         - make all 360 values display in the div 
-    3. Starting animation 
     4. Make canvas image fit correctly
 */
 
 var hue = [];
-var scale = 2;
+var scale = 4;
 
 google.charts.load('current', {
     'packages': ['corechart']
@@ -100,36 +99,36 @@ function startingAnimation() {
 }
 
 function fitImage(canvas, context, imageObj) {
-	var imageAspectRatio = imageObj.width / imageObj.height;
-	var canvasAspectRatio = canvas.width / canvas.height;
+    var imageAspectRatio = imageObj.width / imageObj.height;
+    var canvasAspectRatio = canvas.width / canvas.height;
     var renderableHeight, renderableWidth, xStart, yStart;
 
-	// If image's aspect ratio is less than canvas's we fit on height
-	// and place the image centrally along width
-	if(imageAspectRatio < canvasAspectRatio) {
-		renderableHeight = canvas.height;
-		renderableWidth = imageObj.width * (renderableHeight / imageObj.height);
-		xStart = (canvas.width - renderableWidth) / 2;
+    // If image's aspect ratio is less than canvas's we fit on height
+    // and place the image centrally along width
+    if (imageAspectRatio < canvasAspectRatio) {
+        renderableHeight = canvas.height;
+        renderableWidth = imageObj.width * (renderableHeight / imageObj.height);
+        xStart = (canvas.width - renderableWidth) / 2;
         yStart = 0;
-	}
+    }
 
-	// If image's aspect ratio is greater than canvas's we fit on width
-	// and place the image centrally along height
-	else if(imageAspectRatio > canvasAspectRatio) {
-		renderableWidth = canvas.width;
-		renderableHeight = imageObj.height * (renderableWidth / imageObj.width);
-		xStart = 0;
-		yStart = (canvas.height - renderableHeight) / 2;
-	}
+    // If image's aspect ratio is greater than canvas's we fit on width
+    // and place the image centrally along height
+    else if (imageAspectRatio > canvasAspectRatio) {
+        renderableWidth = canvas.width;
+        renderableHeight = imageObj.height * (renderableWidth / imageObj.width);
+        xStart = 0;
+        yStart = (canvas.height - renderableHeight) / 2;
+    }
 
-	// Happy path - keep aspect ratio
-	else {
-		renderableHeight = canvas.height;
-		renderableWidth = canvas.width;
-		xStart = 0;
-		yStart = 0;
-	}
-	context.drawImage(imageObj, xStart, yStart, renderableWidth, renderableHeight);
+    // Happy path - keep aspect ratio
+    else {
+        renderableHeight = canvas.height;
+        renderableWidth = canvas.width;
+        xStart = 0;
+        yStart = 0;
+    }
+    context.drawImage(imageObj, xStart, yStart, renderableWidth, renderableHeight);
 }
 
 
@@ -139,11 +138,11 @@ $(document).ready(function () {
     var canvas = document.getElementById('imageCanvas');
     var container = document.getElementById('outside');
     var ctx = canvas.getContext('2d');
-    
-    
+
+
 
     function handleImage(e) {
-        canvas.width = $("#div1").width(); 
+        canvas.width = $("#div1").width();
         canvas.height = $("#div1").height();
         // Draw the image
         var reader = new FileReader();
@@ -152,7 +151,7 @@ $(document).ready(function () {
             img.onload = function () {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 //ctx.drawImage(img, 0, 0, img.width, img.height, // source rectangle
-                    //0, 0, canvas.width, canvas.height);
+                //0, 0, canvas.width, canvas.height);
                 fitImage(canvas, ctx, img);
                 drawGraph();
             };
@@ -215,7 +214,12 @@ $(document).ready(function () {
                 'title': 'Color graph',
                 'width': chartdiv.width,
                 'height': chartdiv.height,
-                legend: 'none'
+                legend: 'none',
+                animation: {
+                    duration: 2000,
+                    easing: 'out',
+                    startup: true
+                }
             };
 
             // Instantiate and draw our chart, passing in some options.
