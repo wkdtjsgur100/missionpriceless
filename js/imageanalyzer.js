@@ -8,6 +8,7 @@
 */
 
 var hue = [];
+var scale = 2;
 
 google.charts.load('current', {
     'packages': ['corechart']
@@ -200,7 +201,13 @@ $(document).ready(function () {
                 var s = i.toString();
                 var colorRGB = hslToRgb(i / 360.0, 1, 0.5);
                 var c = "color: rgb(" + colorRGB[0] + ", " + colorRGB[1] + ", " + colorRGB[2] + ")";
-                dataTable.addRow([s, hue[i], c]);
+                if (i % scale === 0) {
+                    var sum = 0;
+                    for (j = 0; j < scale; j++) {
+                        sum += hue[i + j];
+                    }
+                    dataTable.addRow([s, sum, c]);
+                }
             }
             var chartdiv = document.getElementById('chart_div');
             // Set chart options
